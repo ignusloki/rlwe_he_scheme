@@ -37,17 +37,15 @@ def polyadd(x, y, modulus, poly_mod):
 if __name__ == "__main__":
     # Scheme's parameters
     # polynomial modulus degree
-    n = 2**2
+    n = (2**2) + 1
     # ciphertext modulus
-    p = 101
-    # plaintext modulus
-    t = 2**8
+    p = 601
     # polynomial modulus
-    poly_mod = [1,0,0,0,1]
+    poly_mod = [1,0,0,0,2,1]
     # k
-    k = [20]
+    k = [0,0,0,0,100]
     # mensagem
-    m = [3]    
+    m = [0,0,0,0,3]    
     
     
     print("====================================================")
@@ -56,20 +54,20 @@ if __name__ == "__main__":
     print("====================================================")    
     
     #Secret Key
-    SK = [1,0,0,100]
+    SK = [1,0,1,0,100]
     print("poly S:")
     print(np.poly1d(SK))
     
     print("====================================================")
     
     #Error poly
-    e = [1,1,100,0]
+    e = [1,1,1,20,0]
     print("poly e:") 
     print(np.poly1d(e))
     print("====================================================")
     
     #PK
-    a = [83,23,51,77]
+    a = [83,23,51,77,1]
     print("poly a: ")
     print(np.poly1d(a))
     print("====================================================")
@@ -91,7 +89,7 @@ if __name__ == "__main__":
     # Multiplacação a * s com mod 101 sobre x^4+1
     result = np.poly1d(result%p) / np.poly1d(poly_mod)
     print("poly a*s mod 101 / x^4+1:")
-    result = [95,-5%p,27,-27%p]
+    #result = [95,-5%p,27,-27%p]
     print(np.poly1d(result))
     print("====================================================")
     
@@ -108,19 +106,19 @@ if __name__ == "__main__":
     print("====================================================")
     
     #Chave Efemera
-    ek = [0,100,100,0]
+    ek = [1,0,100,100,0]
     
     
     #Erros utilizados Bob
-    e1 = [0,1,0,0]
-    e2 = [0,100,1,0]
+    e1 = [1,0,1,0,0]
+    e2 = [1,0,100,1,0]
     
     
     #Criação do v = a*EK + e1
     v = np.polyadd(np.polydiv((np.polymul(a,ek) % p), poly_mod)[1],e1) % p
     
     
-    #Criação do w = b*EK + e2 + km   
+    #Criação do w = b*EK + e2
     w = np.polyadd(np.polydiv((np.polymul(b,ek) % p), poly_mod)[1],e2) % p
     
     # +km

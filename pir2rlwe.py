@@ -9,10 +9,8 @@ if __name__ == "__main__":
     n = 2**2
     # ciphertext modulus
     p = 101
-    # plaintext modulus
-    t = 2**8
     # polynomial modulus
-    poly_mod = [1,0,0,1]
+    poly_mod = [1,0,0,0,1]
     # k
     k = [20]
     # mensagem
@@ -25,14 +23,14 @@ if __name__ == "__main__":
     print("====================================================")    
     
     #Secret Key
-    SK = [1,0,0,1]
+    SK = [1,0,0,100]
     print("poly S:")
     print(np.poly1d(SK))
     
     print("====================================================")
     
     #Error poly
-    e = [1,0,1,1]
+    e = [1,1,100,0]
     print("poly e:") 
     print(np.poly1d(e))
     print("====================================================")
@@ -77,12 +75,12 @@ if __name__ == "__main__":
     print("====================================================")
     
     #Chave Efemera
-    ek = [100,0,0,50]
+    ek = [0,100,100,0]
     
     
     #Erros utilizados Bob
-    e1 = [1,0,1,20]
-    e2 = [4,1,1,0]
+    e1 = [0,1,0,0]
+    e2 = [0,100,1,0]
     
     
     #Criação do v = a*EK + e1
