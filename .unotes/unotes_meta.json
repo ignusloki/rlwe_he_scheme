@@ -1,0 +1,50 @@
+{
+  "name": "",
+  "isOrdered": true,
+  "folders": {
+    "Mestrado": {
+      "name": "Mestrado",
+      "isOrdered": true,
+      "folders": {
+        "CRYSTALS-KYBER": {
+          "name": "CRYSTALS-KYBER",
+          "isOrdered": true,
+          "folders": {},
+          "files": {
+            "iNFO": 0
+          }
+        },
+        "SABER": {
+          "name": "SABER",
+          "isOrdered": true,
+          "folders": {},
+          "files": {
+            "Info": 0
+          }
+        },
+        "NTRU": {
+          "name": "NTRU",
+          "isOrdered": true,
+          "folders": {},
+          "files": {
+            "Info": 0
+          }
+        },
+        "McEliece": {
+          "name": "McEliece",
+          "isOrdered": true,
+          "folders": {},
+          "files": {
+            "Info": 0
+          }
+        }
+      },
+      "files": {
+        "SaberKiberNTRU": 0
+      }
+    }
+  },
+  "files": {
+    "Cap 2 e cap 3 Rev": 0
+  }
+}
