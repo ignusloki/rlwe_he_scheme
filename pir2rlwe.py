@@ -14,7 +14,7 @@ if __name__ == "__main__":
     # k
     k = [20]
     # mensagem
-    m = [3]    
+    m = [4]    
     
     
     print("====================================================")
@@ -56,9 +56,12 @@ if __name__ == "__main__":
     
     
     # Multiplacação a * s com mod 101 sobre x^4+1
-    result = np.poly1d(result%p) / np.poly1d(poly_mod)
+    result = np.polydiv(np.poly1d(result%p),np.poly1d(poly_mod))[1]
+    #result = np.poly1d(result%p) / np.poly1d(poly_mod)    
+    #result = [95,-5%p,27,-27%p]
+    
+    
     print("poly a*s mod 101 / x^4+1:")
-    result = [95,-5%p,27,-27%p]
     print(np.poly1d(result))
     print("====================================================")
     
