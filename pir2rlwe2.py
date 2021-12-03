@@ -2,6 +2,7 @@ import Pyfhel
 import tempfile
 import numpy
 from pathlib import Path
+import faulthandler; faulthandler.enable()
 
 
 # Configuracao
@@ -10,12 +11,13 @@ from pathlib import Path
 tamanhoConsultaPrivada = 5
 vetorP = [0,0,0,0,0] 
 VK = []
+CP = []
 
 
 # ----------------------------------------------------------------------------------
 
 # Criando o vetor VK - Passo 4
-for index in enumerate(vetorP):
+for index in range(len(vetorP)):
     #1. p (long): Plaintext modulus. All operations are modulo p.
     #2. m (long=2048): Polynomial coefficient modulus.
     #   Higher allows more encrypted operations. In batch mode it is the number of integers per ciphertext.
@@ -34,6 +36,37 @@ vetorP = [0,0,0,1,0]
 
 # ----------------------------------------------------------------------------------
 
+print("Locais do contexto e chaves:")
+# Criando o vetor CP - Passo 7 e 8
+for index in range(len(vetorP)):
+    he_temp = Pyfhel.Pyfhel()
+    
+    #Restaurando chaves e contexto
+    localContexto = "./chaves/context_" + str(index)
+    localChavePK = "./chaves/pub" + str(index) + ".key"
+    localChaveSK = "./chaves/sec" + str(index) + ".key"
+    he_temp.restoreContext(localContexto)    
+    he_temp.restorepublicKey(localChavePK)
+    he_temp.restoresecretKey(localChaveSK)    
+    
+    print(str(index) + " : " + localContexto)
+    print(str(index) + " : " + localChavePK)
+    print(str(index) + " : " + localChaveSK)    
+    
+    CP.append(he_temp.encryptInt(vetorP[index]))
+    print(str(CP[index]))
+    
+    CP[index].save("./chaves/enc/ctx" + str(index))
+
+# ----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+# ----------------------------------------------------------------------------------
 
 # Using a temporary dir as a "secure channel"
 # This can be changed into real communication using other python libraries.
@@ -42,11 +75,6 @@ sec_con = Path(secure_channel.name)
 pk_file = sec_con / "mypk.pk"
 contx_file = sec_con / "mycontx.con"
 print(sec_con)
-
-
-# ----------------------------------------------------------------------------------
-
-# Geração do vetor privado
 
 
 # ----------------------------------------------------------------------------------
@@ -59,15 +87,5 @@ print("-------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------
 
-print("----------------------------------------------------------------------------------")
-a = 1.5
-b = 2.5
-ca = he.encryptFrac(a)
-cb = he.encryptFrac(b)
-ca.to_file(sec_con / "ca.ctxt")
-cb.to_file(sec_con / "cb.ctxt")
-
-
-print("----------------------------------------------------------------------------------")
 
 
