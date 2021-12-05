@@ -28,16 +28,20 @@ he_alice.restorepublicKey(localChavePKBob)
 
 #Encripta o bloco que foi quebrado em partes menores
 for index in range(len(rawBlock)):
+    
     print("")
     print(str(index) + ": " + str(rawBlock[index]))
+    
     rawBlock[index] = int(rawBlock[index], 16)   
+    
     print(str(index) + ": " + str(rawBlock[index]))
     print("")
+    
     bloco = he_alice.encryptInt(rawBlock[index])
     bloco.save(localBlocosCP + "/ctx_01bloco" + str(index))
 
 
-#Alice aplicando homomorfismo bloco CP * CP'- Passo 12
+#Alice aplicando homomorfismo bloco CP * CP' e enviando o resultado- Passo 12 e 13
 ctxt_restored1 = PyCtxt()
 ctxt_restored2 = PyCtxt()
 
