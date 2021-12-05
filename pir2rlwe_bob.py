@@ -1,8 +1,15 @@
 import Pyfhel
 import tempfile
-import numpy
 from pathlib import Path
 import faulthandler; faulthandler.enable()
+
+
+
+
+def splitstring(value):
+    string1, string2 = value[:len(value)//2], value[len(value)//2:]
+    return string1, string2
+
 
 
 # Configuracao
@@ -59,33 +66,4 @@ for index in range(len(vetorP)):
     CP[index].save("./chaves/enc/ctx" + str(index))
 
 # ----------------------------------------------------------------------------------
-
-
-
-
-
-
-
-# ----------------------------------------------------------------------------------
-
-# Using a temporary dir as a "secure channel"
-# This can be changed into real communication using other python libraries.
-secure_channel = tempfile.TemporaryDirectory()
-sec_con = Path(secure_channel.name)
-pk_file = sec_con / "mypk.pk"
-contx_file = sec_con / "mycontx.con"
-print(sec_con)
-
-
-# ----------------------------------------------------------------------------------
-half_the_truth = he.encryptInt(21)
-two = he.encryptInt(2)
-the_truth = he.multiply(half_the_truth, two)
-print(he.decryptInt(the_truth))
-print("----------------------------------------------------------------------------------")
-#=> prints 42
-
-# ----------------------------------------------------------------------------------
-
-
 
